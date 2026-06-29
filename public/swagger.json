@@ -1,0 +1,3834 @@
+{
+  "info": {
+    "title": "API DOC",
+    "description": "API DOC",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/auth/check": {
+      "post": {
+        "summary": "Auth check phone",
+        "description": "Auth check phone",
+        "parameters": [
+          {
+            "name": "content-language",
+            "type": "string",
+            "example": "uz",
+            "description": "values: uz | ru | en",
+            "in": "header"
+          },
+          {
+            "name": "device-uid",
+            "type": "string",
+            "description": "device uid",
+            "in": "header"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "type": "string",
+                  "description": "phone Number"
+                },
+                "signature": {
+                  "type": "string",
+                  "description": "SMS signature for auto-fill functionality (optional)"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ]
+      }
+    },
+    "/auth/session": {
+      "post": {
+        "summary": "Create/get Session token",
+        "description": "Create/get Session token",
+        "parameters": [
+          {
+            "name": "device-uid",
+            "type": "string",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "user-agent",
+            "type": "string",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "app-version",
+            "type": "string",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "content-language",
+            "type": "string",
+            "example": "uz",
+            "in": "header"
+          },
+          {
+            "name": "token",
+            "type": "string",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "trustedDevice": {
+                  "type": "boolean",
+                  "description": "if PIN-code is set, trustedDevice is true otherwise false"
+                },
+                "metadata": {
+                  "type": "object",
+                  "properties": {
+                    "osName": {
+                      "type": "string"
+                    },
+                    "osVersion": {
+                      "type": "string"
+                    },
+                    "osSdkVersion": {
+                      "type": "string"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "vendor": {
+                      "type": "string"
+                    },
+                    "architecture": {
+                      "type": "string"
+                    },
+                    "dpi": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "fcmToken": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ]
+      }
+    },
+    "/brand/detail/{brandId}": {
+      "get": {
+        "summary": "Brand detail",
+        "description": "Brand detail",
+        "parameters": [
+          {
+            "name": "brandId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Brand"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/brand/list": {
+      "get": {
+        "summary": "Brand list",
+        "description": "Brand list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Brand"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/carousel/list": {
+      "get": {
+        "summary": "Carousel list",
+        "description": "Carousel list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Carousel"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/carousel/single/{carouselId}": {
+      "get": {
+        "summary": "Get single carousel",
+        "description": "Get single carousel",
+        "parameters": [
+          {
+            "name": "carouselId",
+            "type": "string",
+            "required": true,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Carousel"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/category/list": {
+      "get": {
+        "summary": "Category list",
+        "description": "Category list",
+        "parameters": [
+          {
+            "name": "parent",
+            "type": "string",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Category"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/category/popular": {
+      "get": {
+        "summary": "Category popular list",
+        "description": "Category popular list",
+        "parameters": [
+          {
+            "name": "size",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Category"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/category/recursive-list": {
+      "get": {
+        "summary": "Get all categories and sub-categories",
+        "description": "Get all categories and sub-categories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Category"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/category/detail/{categoryId}": {
+      "get": {
+        "summary": "Category detail by id",
+        "description": "Category detail by id",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Category"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/confirmation/validate": {
+      "post": {
+        "summary": "Validate confirmation",
+        "description": "Validate confirmation",
+        "parameters": [
+          {
+            "name": "device-uid",
+            "type": "string",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "content-language",
+            "type": "string",
+            "example": "uz",
+            "in": "header"
+          },
+          {
+            "name": "token",
+            "type": "string",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "otp code"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Confirmation"
+        ],
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ]
+      }
+    },
+    "/confirmation/resend": {
+      "post": {
+        "summary": "Resend sms confirmation",
+        "description": "Resend sms confirmation",
+        "parameters": [
+          {
+            "name": "device-uid",
+            "type": "string",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "content-language",
+            "type": "string",
+            "example": "uz",
+            "in": "header"
+          },
+          {
+            "name": "token",
+            "type": "string",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "signature",
+            "type": "string",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "enum": [
+              "SMS",
+              "TELEGRAM"
+            ],
+            "required": false,
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Confirmation"
+        ],
+        "security": [
+          {
+            "sessionToken": []
+          }
+        ]
+      }
+    },
+    "/FAQ/list": {
+      "get": {
+        "summary": "FAQ list",
+        "description": "FAQ list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "FAQ"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/model/detail/{modelId}": {
+      "get": {
+        "summary": "Model detail",
+        "description": "Model detail",
+        "parameters": [
+          {
+            "name": "modelId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Model"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/model/list": {
+      "get": {
+        "summary": "Model list",
+        "description": "Model list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Model"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/news/detail/{newsId}": {
+      "get": {
+        "summary": "News detail",
+        "description": "News detail",
+        "parameters": [
+          {
+            "name": "newsId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "News"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/news/list": {
+      "get": {
+        "summary": "News list",
+        "description": "News list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "News"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/news/like/{newsId}": {
+      "put": {
+        "summary": "News set/unset like",
+        "description": "News set/unset like",
+        "parameters": [
+          {
+            "name": "newsId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "News"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/list": {
+      "post": {
+        "summary": "Product list",
+        "description": "Product list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "filter": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "required": false,
+                      "description": "Category id"
+                    },
+                    "brands": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "required": false,
+                      "description": "Brand ids array"
+                    },
+                    "models": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "required": false,
+                      "description": "Model ids array"
+                    },
+                    "store": {
+                      "type": "string",
+                      "required": false,
+                      "description": "Store id"
+                    },
+                    "price": {
+                      "type": "object",
+                      "properties": {
+                        "from": {
+                          "type": "number",
+                          "required": false
+                        },
+                        "to": {
+                          "type": "number",
+                          "required": false
+                        }
+                      },
+                      "required": false,
+                      "description": "Price from:to"
+                    },
+                    "color": {
+                      "type": "string",
+                      "required": false
+                    },
+                    "rating": {
+                      "type": "number",
+                      "required": false
+                    },
+                    "isFavorite": {
+                      "type": "boolean",
+                      "required": false
+                    }
+                  }
+                },
+                "search": {
+                  "type": "string"
+                },
+                "sort": {
+                  "type": "string",
+                  "description": "sorting key"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Product"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/detail/{productId}": {
+      "get": {
+        "summary": "Product detail",
+        "description": "Product detail",
+        "parameters": [
+          {
+            "name": "productId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Product"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/compare": {
+      "post": {
+        "summary": "Products compare characteristics",
+        "description": "Products compare characteristics",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Product"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/viewed": {
+      "get": {
+        "summary": "Product list",
+        "description": "Product list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Product"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/universal/filter": {
+      "post": {
+        "summary": "Product list",
+        "description": "Product list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "filter": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "required": false,
+                      "description": "Category id"
+                    },
+                    "brands": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "required": false,
+                      "description": "Brand ids array"
+                    },
+                    "models": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "required": false,
+                      "description": "Model ids array"
+                    },
+                    "store": {
+                      "type": "string",
+                      "required": false,
+                      "description": "Store id"
+                    },
+                    "price": {
+                      "type": "object",
+                      "properties": {
+                        "from": {
+                          "type": "number",
+                          "required": false
+                        },
+                        "to": {
+                          "type": "number",
+                          "required": false
+                        }
+                      },
+                      "required": false,
+                      "description": "Price from:to"
+                    },
+                    "color": {
+                      "type": "string",
+                      "required": false
+                    },
+                    "rating": {
+                      "type": "number",
+                      "required": false
+                    },
+                    "isFavorite": {
+                      "type": "boolean",
+                      "required": false
+                    }
+                  }
+                },
+                "search": {
+                  "type": "string"
+                },
+                "sort": {
+                  "type": "string",
+                  "description": "sorting key"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Product"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/home/feed": {
+      "get": {
+        "summary": "Home feed (infinite scroll)",
+        "description": "Home feed (infinite scroll)",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Product"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/home-feed-setup": {
+      "post": {
+        "summary": "One-time: create home feed index + backfill randomBucket",
+        "description": "One-time: create home feed index + backfill randomBucket",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Product"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/search-by-image": {
+      "post": {
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "summary": "Search products by image. For pagination send sessionId without image.",
+        "description": "Search products by image. For pagination send sessionId without image.",
+        "parameters": [
+          {
+            "name": "session",
+            "type": "string",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "name": "file",
+            "type": "file",
+            "required": false,
+            "description": "Product image (required only on first request)",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Product"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/product/create-index": {
+      "post": {
+        "summary": "Create MongoDB indexes manually",
+        "description": "Create MongoDB indexes manually",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Indexes"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/promotion/list": {
+      "get": {
+        "summary": "Promotion list",
+        "description": "Promotion list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "string",
+            "example": "Main",
+            "description": "Main|Category",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Promotion"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/review/by-product": {
+      "get": {
+        "summary": "Product reviews",
+        "description": "Product reviews",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "product",
+            "type": "string",
+            "required": true,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Review"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/review/pending": {
+      "get": {
+        "summary": "User reviews",
+        "description": "User reviews",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Review"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/review/pending/list": {
+      "get": {
+        "summary": "User reviews",
+        "description": "User reviews",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Review"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/review/by-user": {
+      "get": {
+        "summary": "User reviews",
+        "description": "User reviews",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Review"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/review/write": {
+      "post": {
+        "summary": "Write Review",
+        "description": "Write Review",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "stars",
+                "product",
+                "order"
+              ],
+              "properties": {
+                "stars": {
+                  "type": "number"
+                },
+                "advantages": {
+                  "type": "string"
+                },
+                "disadvantages": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string",
+                  "description": "product id"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "store order id"
+                },
+                "attachments": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Review"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/favorite/remove-like": {
+      "put": {
+        "summary": "Remove Like from Favorite Product",
+        "description": "Remove Like from Favorite Product",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string"
+                },
+                "productIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Favorite"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/favorite/set-like": {
+      "put": {
+        "summary": "Set Favorite to product by user",
+        "description": "Set Favorite to product by user",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string"
+                },
+                "productIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Favorite"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/basket/list": {
+      "get": {
+        "summary": "User Basket List",
+        "description": "User Basket List",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "basketIds",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Basket"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/basket/add-product": {
+      "put": {
+        "summary": "Add product to basket",
+        "description": "Add product to basket",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string"
+                },
+                "productIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Basket"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/basket/remove-product": {
+      "put": {
+        "summary": "Remove product from basket",
+        "description": "Remove product from basket",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string"
+                },
+                "productIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Basket"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/basket/count/{baskedProductId}": {
+      "put": {
+        "summary": "Update productCount in basket",
+        "description": "Update productCount in basket",
+        "parameters": [
+          {
+            "name": "baskedProductId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "productCount"
+              ],
+              "properties": {
+                "productCount": {
+                  "type": "number"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Basket"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/address/add": {
+      "post": {
+        "summary": "User Address create",
+        "description": "User Address create",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "address",
+                "latitude",
+                "longitude"
+              ],
+              "properties": {
+                "address": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "number"
+                },
+                "longitude": {
+                  "type": "number"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "User Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/address/list": {
+      "get": {
+        "summary": "User Address list",
+        "description": "User Address list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "User Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/address/remove/{addressId}": {
+      "delete": {
+        "summary": "Remove address from user address list",
+        "description": "Remove address from user address list",
+        "parameters": [
+          {
+            "name": "addressId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "User Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/profile/detail": {
+      "get": {
+        "summary": "Get User profile details",
+        "description": "Get User profile details",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Profile"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/profile/avatar": {
+      "put": {
+        "summary": "Update user avatar",
+        "description": "Update user avatar",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "avatar"
+              ],
+              "properties": {
+                "avatar": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Profile"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/profile/info": {
+      "put": {
+        "summary": "Update user profile info",
+        "description": "Update user profile info",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "middleName": {
+                  "type": "string"
+                },
+                "birthDate": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "enableNotification": {
+                  "type": "boolean"
+                },
+                "gender": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Profile"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/address/{addressId}": {
+      "put": {
+        "summary": "User Address update",
+        "description": "User Address update",
+        "parameters": [
+          {
+            "name": "addressId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "address",
+                "latitude",
+                "longitude"
+              ],
+              "properties": {
+                "address": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "number"
+                },
+                "longitude": {
+                  "type": "number"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "User Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/profile/": {
+      "delete": {
+        "summary": "Delete Account",
+        "description": "Delete Account",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Profile"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/profile/fcm-token": {
+      "put": {
+        "summary": "Update user profile fcm-token",
+        "description": "Update user profile fcm-token",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "fcmToken"
+              ],
+              "properties": {
+                "fcmToken": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Profile"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/cashback/list": {
+      "get": {
+        "summary": "User cashback from all stores",
+        "description": "User cashback from all stores",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "User Cashback"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "User cashback from all stores",
+        "description": "User cashback from all stores",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storeIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "User Cashback"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/user/favorite/list": {
+      "get": {
+        "summary": "Get my favorite products",
+        "description": "Get my favorite products",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "name": "content-language",
+            "type": "string",
+            "example": "ru",
+            "description": "values: uz | ru | en",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Favorite"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/common/splash/list": {
+      "get": {
+        "summary": "Splash Screen list",
+        "description": "Splash Screen list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Common"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/common/upload-image": {
+      "post": {
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "summary": "Upload image",
+        "description": "Upload image",
+        "parameters": [
+          {
+            "name": "file",
+            "type": "file",
+            "required": true,
+            "description": "file content",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Common"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/common/app-info": {
+      "get": {
+        "summary": "App info",
+        "description": "App info",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Common"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/common/privacy-policy": {
+      "get": {
+        "summary": "App Privacy Policy",
+        "description": "App Privacy Policy",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Common"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/ubay-point/list": {
+      "get": {
+        "summary": "Ubay point list",
+        "description": "Ubay point list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/uzb-locations/list": {
+      "get": {
+        "summary": "Uzb Locations list",
+        "description": "Uzb Locations list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/delivery-point/list": {
+      "get": {
+        "summary": "Delivery point list",
+        "description": "Delivery point list",
+        "parameters": [
+          {
+            "name": "search",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/emu/delivery-point/list": {
+      "get": {
+        "summary": "Emu Delivery point list",
+        "description": "Emu Delivery point list",
+        "parameters": [
+          {
+            "name": "search",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/uzpost/delivery-point/list": {
+      "get": {
+        "summary": "Delivery point list",
+        "description": "Delivery point list",
+        "parameters": [
+          {
+            "name": "search",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/manager/list": {
+      "get": {
+        "summary": "Managers list",
+        "description": "Managers list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Manager"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/store/detail/{storeId}": {
+      "get": {
+        "summary": "Store detail",
+        "description": "Store detail",
+        "parameters": [
+          {
+            "name": "storeId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Store"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/compare/add": {
+      "post": {
+        "summary": "Add a product to compare",
+        "description": "Add a product to compare",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "productId"
+              ],
+              "properties": {
+                "productId": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Compare"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/compare/clear": {
+      "delete": {
+        "summary": "clear all products from compare",
+        "description": "clear all products from compare",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Compare"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/compare/filters": {
+      "get": {
+        "summary": "get compare filters",
+        "description": "get compare filters",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Compare"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/compare/result": {
+      "get": {
+        "summary": "Get compare details",
+        "description": "Get compare details",
+        "parameters": [
+          {
+            "name": "category",
+            "type": "string",
+            "required": true,
+            "description": "Category ID to filter products",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Compare"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/compare/remove-product": {
+      "delete": {
+        "summary": "Remove product from compare",
+        "description": "Remove product from compare",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "productId"
+              ],
+              "properties": {
+                "productId": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Compare"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/compare/products": {
+      "get": {
+        "summary": "Get compare products",
+        "description": "Get compare products",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Compare"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/chats/create": {
+      "post": {
+        "summary": "Create new chat",
+        "description": "Create new chat",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "title",
+                "store"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "store": {
+                  "type": "string"
+                },
+                "extraData": {
+                  "type": "object"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Chats"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/chats/{chatId}": {
+      "delete": {
+        "summary": "Delete chat",
+        "description": "Delete chat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Chats"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/chats/list": {
+      "get": {
+        "summary": "Get all chats for a user",
+        "description": "Get all chats for a user",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Chats"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/chats/messages/{chatId}": {
+      "get": {
+        "summary": "Create new chat",
+        "description": "Create new chat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Chats"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/chats/message/write": {
+      "post": {
+        "summary": "Write chat message",
+        "description": "Write chat message",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "chatId",
+                "message",
+                "messageType"
+              ],
+              "properties": {
+                "chatId": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "messageType": {
+                  "type": "string",
+                  "description": "TEXT|IMAGE"
+                },
+                "product": {
+                  "type": "string",
+                  "description": "Product id (ObjectId)"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Chats"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/chats/message-to-read/{messageId}": {
+      "put": {
+        "summary": "message to read",
+        "description": "message to read",
+        "parameters": [
+          {
+            "name": "messageId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Chats"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/chats/detail/{chatId}": {
+      "get": {
+        "summary": "Get chat detail by id",
+        "description": "Get chat detail by id",
+        "parameters": [
+          {
+            "name": "chatId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Chats"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/lifehacks/comments-create/{lifehackId}": {
+      "post": {
+        "summary": "Add lifehack comment",
+        "description": "Add lifehack comment",
+        "parameters": [
+          {
+            "name": "lifehackId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "text"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Lifehacks"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/lifehacks/likes-toggle/{lifehackId}": {
+      "post": {
+        "summary": "Toggle lifehack like",
+        "description": "Toggle lifehack like",
+        "parameters": [
+          {
+            "name": "lifehackId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Lifehacks"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/lifehacks/comments-delete/{commentId}": {
+      "delete": {
+        "summary": "Delete lifehack comment",
+        "description": "Delete lifehack comment",
+        "parameters": [
+          {
+            "name": "commentId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Lifehacks"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/lifehacks/comments-list/{lifehackId}": {
+      "get": {
+        "summary": "Lifehack comments list",
+        "description": "Lifehack comments list",
+        "parameters": [
+          {
+            "name": "lifehackId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Lifehacks"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/lifehacks/comment-replies-list/{commentId}": {
+      "get": {
+        "summary": "Lifehack comment replies list",
+        "description": "Lifehack comment replies list",
+        "parameters": [
+          {
+            "name": "commentId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Lifehacks"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/lifehacks/detail/{lifehackId}": {
+      "get": {
+        "summary": "Lifehack detail",
+        "description": "Lifehack detail",
+        "parameters": [
+          {
+            "name": "lifehackId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Lifehacks"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/lifehacks/likes-list/{lifehackId}": {
+      "get": {
+        "summary": "Lifehack likes list",
+        "description": "Lifehack likes list",
+        "parameters": [
+          {
+            "name": "lifehackId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Lifehacks"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/lifehacks/list": {
+      "get": {
+        "summary": "Lifehack list",
+        "description": "Lifehack list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Lifehacks"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/video-contents/detail/{videoContentId}": {
+      "get": {
+        "summary": "Video Content detail",
+        "description": "Video Content detail",
+        "parameters": [
+          {
+            "name": "videoContentId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Video Contents"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/video-contents/list": {
+      "get": {
+        "summary": "Video Content list",
+        "description": "Video Content list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Video Contents"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/seller-leeds/add": {
+      "post": {
+        "summary": "SellerLeed add",
+        "description": "SellerLeed add",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "fullName",
+                "phoneNumber"
+              ],
+              "properties": {
+                "fullName": {
+                  "type": "string"
+                },
+                "phoneNumber": {
+                  "type": "string"
+                },
+                "storeName": {
+                  "type": "string"
+                },
+                "additionalInfo": {
+                  "type": "string"
+                },
+                "sphera": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "SellerLeeds"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/b2b-leads/add": {
+      "post": {
+        "summary": "B2B Leads add",
+        "description": "B2B Leads add",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "fullName",
+                "phoneNumber"
+              ],
+              "properties": {
+                "fullName": {
+                  "type": "string"
+                },
+                "phoneNumber": {
+                  "type": "string"
+                },
+                "companyName": {
+                  "type": "string"
+                },
+                "additionalInfo": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "B2B Leads"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/stats/main": {
+      "get": {
+        "summary": "Statistics",
+        "description": "Statistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Statistics"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/promocode/list": {
+      "get": {
+        "summary": "Promocode list",
+        "description": "Promocode list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Promocode"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/promocode/check": {
+      "post": {
+        "summary": "Check promocode",
+        "description": "Check promocode",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "basketId": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Promocode"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/partner-brands/detail/{partnerBrandId}": {
+      "get": {
+        "summary": "Partner brand detail",
+        "description": "Partner brand detail",
+        "parameters": [
+          {
+            "name": "partnerBrandId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "PartnerBrands"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/partner-brands/list": {
+      "get": {
+        "summary": "Partner brands list",
+        "description": "Partner brands list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "PartnerBrands"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/order/list": {
+      "get": {
+        "summary": "Order List",
+        "description": "Order List",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "required": false,
+            "description": "PENDING | PROCESSING | CONFIRMED | PREPARING | READY_TO_DELIVER | SHIPPED | READY_TO_PICKUP | DELIVERED | CANCELLED | RETURNED | ACTIVE",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/order/confirm/click": {
+      "post": {
+        "summary": "Confirm Order",
+        "description": "Confirm Order",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "click_trans_id": {
+                  "type": "string"
+                },
+                "service_id": {
+                  "type": "number"
+                },
+                "click_paydoc_id": {
+                  "type": "number"
+                },
+                "merchant_trans_id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "action": {
+                  "type": "number"
+                },
+                "error": {
+                  "type": "number"
+                },
+                "error_note": {
+                  "type": "string"
+                },
+                "sign_time": {
+                  "type": "string"
+                },
+                "sign_string": {
+                  "type": "string"
+                },
+                "merchant_prepare_id": {
+                  "type": "number"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/order/update/{orderId}": {
+      "put": {
+        "summary": "Update Order",
+        "description": "Update Order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "paymentType": {
+                  "type": "string",
+                  "description": "CASH|CLICK|CLICK_QR|CARD|IMAN_PAY|OTHER|PAYME|UZUM"
+                },
+                "paymentData": {
+                  "type": "object",
+                  "description": "paymentData"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/order/detail/{orderId}": {
+      "get": {
+        "summary": "Order detail by id",
+        "description": "Order detail by id",
+        "parameters": [
+          {
+            "name": "orderId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/order/re-pay/{orderId}": {
+      "post": {
+        "summary": "Create Order",
+        "description": "Create Order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "totalAmounts"
+              ],
+              "properties": {
+                "paymentType": {
+                  "type": "string",
+                  "enum": [
+                    "CASH",
+                    "CLICK",
+                    "CLICK_QR",
+                    "CARD",
+                    "IMAN_PAY",
+                    "OTHER",
+                    "PAYME",
+                    "UZUM"
+                  ]
+                },
+                "totalAmounts": {
+                  "type": "number"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/order/create": {
+      "post": {
+        "summary": "Create Order",
+        "description": "Create Order",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "username",
+                "phoneNumber",
+                "address",
+                "products",
+                "totalAmount",
+                "deliveryPrice"
+              ],
+              "properties": {
+                "manager": {
+                  "type": "string",
+                  "description": "Manager"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "phoneNumber": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "object"
+                },
+                "deliveryAddressType": {
+                  "type": "string",
+                  "description": "DELIVERY_POINT|LOCATION|UBAY_POINT"
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "basketId": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "totalAmount": {
+                  "type": "number"
+                },
+                "deliveryPrice": {
+                  "type": "number"
+                },
+                "paymentType": {
+                  "type": "string",
+                  "description": "CASH|CLICK|CLICK_QR|CARD|IMAN_PAY|OTHER|PAYME|UZUM"
+                },
+                "paymentData": {
+                  "type": "object"
+                },
+                "promoCode": {
+                  "type": "string"
+                },
+                "urgentDelivery": {
+                  "type": "boolean"
+                },
+                "cashbackUsage": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "storeId": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "needToCall": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/order/iman/calculate-purchase-options": {
+      "post": {
+        "summary": "Confirm Order",
+        "description": "Confirm Order",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "totalAmount"
+              ],
+              "properties": {
+                "totalAmount": {
+                  "type": "number"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/order/delivery-price": {
+      "post": {
+        "summary": "Calculate delivery price by basket total",
+        "description": "Calculate delivery price by basket total",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "products"
+              ],
+              "properties": {
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "basketId": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "description": "Basket item ids"
+                },
+                "paymentType": {
+                  "type": "string",
+                  "description": "CASH|CLICK|CLICK_QR|CARD|IMAN_PAY|OTHER|PAYME|UZUM"
+                },
+                "promoCode": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/special-event/single/{specialEventId}": {
+      "get": {
+        "summary": "Get Special Event Detail",
+        "description": "Get Special Event Detail",
+        "parameters": [
+          {
+            "name": "specialEventId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Special Event"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/special-event/list": {
+      "get": {
+        "summary": "Get Special Event list",
+        "description": "Get Special Event list",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Special Event"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/notifications/detail/{id}": {
+      "get": {
+        "summary": "Notification detail",
+        "description": "Notification detail",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          "jwt",
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/notifications/list": {
+      "get": {
+        "summary": "Notification inbox",
+        "description": "Notification inbox",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "number",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/notifications/unread": {
+      "get": {
+        "summary": "Notification inbox",
+        "description": "Notification inbox",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "responses": {},
+  "definitions": {},
+  "tags": [],
+  "swagger": "2.0",
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  }
+}

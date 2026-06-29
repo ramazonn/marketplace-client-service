@@ -1,0 +1,73 @@
+name: Gitea Actions Demo
+run-name: ${{ gitea.actor }} is testing out Gitea Actions 🚀
+
+on:
+  push:
+    branches:
+      - dev
+      - prod
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "🔨 The job was automatically triggered by a ${{ gitea.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by Gitea!"
+      - run: echo "🔎 The name of your branch is ${{ gitea.ref }} and your repository is ${{ gitea.repository }}."
+      - run: echo "💡 The ${{ gitea.repository }} repository has been cloned to the runner."
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Generate .npmrc file from NPMRC_UBAY_CORE variable 
+        run: |
+          touch .npmrcup
+          echo "${{ vars.NPMRC_UBAY_CORE }}" >> .npmrc
+          echo "🔑 .npmrc file has been generated"
+ 
+      - name: Setup environment file
+        run: |
+          if [[ "${{ steps.extract_branch.outputs.branch }}" == "prod" ]]; then
+            cp .env.prod .env
+            echo "🔑 Using production environment"
+          else
+            cp .env.dev .env
+            echo "🔑 Using development environment"
+          fi
+    
+      
+      - name: Build Docker image 
+        run: |
+          echo "🏗️ Building Docker image"
+          docker build -t git.ubaytools.com/ubaytools/ubay-client-api:${{ gitea.sha }} .
+          docker tag git.ubaytools.com/ubaytools/ubay-client-api:${{ gitea.sha }} git.ubaytools.com/ubaytools/ubay-client-api:${{ steps.extract_branch.outputs.branch }}
+          echo "🛳️ Docker image has been built"
+
+      - name: Push Docker image to Gitea registry
+        run: |
+          docker login -u admin -p ${{ secrets.GITEAREGISTRYTOKEN }} git.ubaytools.com
+          docker push git.ubaytools.com/ubaytools/ubay-client-api:${{ gitea.sha }}
+          docker push git.ubaytools.com/ubaytools/ubay-client-api:${{ steps.extract_branch.outputs.branch }}
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_K8S_ACCESS_TOKEN }}
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl"
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      - name: Set kubeconfig
+        run: |
+          doctl kubernetes cluster kubeconfig save k8s-ubaytools
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/backend-client-api -n ${{ steps.extract_branch.outputs.branch }} backend-client-api=git.ubaytools.com/ubaytools/ubay-client-api:${{ gitea.sha }}
+          kubectl rollout status -n ${{ steps.extract_branch.outputs.branch }} deployment/backend-client-api
